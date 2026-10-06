@@ -1,1 +1,1014 @@
-...
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>两个一百年 · 鱼骨图</title>
+<meta name="description" content="邓小平两个百年计划奋斗目标鱼骨图 — 从三步走战略到全面建成现代化强国的完整脉络">
+<style>
+/* ===== Reset & Base ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  /* Light tokens */
+  --red: #C41E3A;
+  --red-dark: #8B0000;
+  --red-light: #FDE8EC;
+  --gold: #D4A648;
+  --gold-light: #F5E8C8;
+  --navy: #1B2A4A;
+  --cream: #F8F5F0;
+  --page-bg: #FFFFFF;
+  --surface: #F8F5F0;
+  --surface-inset: #EEEAE2;
+  --text: #2C2C2C;
+  --text-secondary: #6B6B6B;
+  --text-muted: #999999;
+  --border: #E0D8CC;
+  --shadow: rgba(0,0,0,0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page-bg: #11151F;
+    --surface: #1A1F2E;
+    --surface-inset: #242A3C;
+    --text: #E8E4DE;
+    --text-secondary: #A8A4A0;
+    --text-muted: #706C68;
+    --border: #2E3444;
+    --shadow: rgba(0,0,0,0.4);
+    --red-light: #2A0A12;
+    --gold-light: #2A2210;
+    --cream: #1A1F2E;
+  }
+}
+:root[data-theme="dark"] {
+  --page-bg: #11151F;
+  --surface: #1A1F2E;
+  --surface-inset: #242A3C;
+  --text: #E8E4DE;
+  --text-secondary: #A8A4A0;
+  --text-muted: #706C68;
+  --border: #2E3444;
+  --shadow: rgba(0,0,0,0.4);
+  --red-light: #2A0A12;
+  --gold-light: #2A2210;
+  --cream: #1A1F2E;
+}
+
+body {
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--page-bg);
+  color: var(--text);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* ===== Typography ===== */
+h1, h2, h3, h4 {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", serif;
+  font-weight: 700;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+/* ===== Preloader ===== */
+.preloader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+.preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.preloader .spinner {
+  width: 48px; height: 48px;
+  border: 3px solid rgba(212,166,72,0.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.preloader p {
+  color: var(--gold); margin-top: 20px;
+  font-size: 14px; letter-spacing: 4px;
+}
+
+/* ===== Theme toggle ===== */
+.theme-toggle {
+  position: fixed; top: 20px; right: 20px; z-index: 100;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 50%; width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 20px;
+  box-shadow: 0 2px 8px var(--shadow);
+  transition: all 0.3s;
+}
+.theme-toggle:hover { transform: scale(1.1); }
+
+/* ===== Hero ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 60px 24px 40px;
+  overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, var(--red) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 50%, var(--navy) 0%, transparent 60%);
+  opacity: 0.08;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+
+.hero-badge {
+  display: inline-block;
+  padding: 6px 20px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  border-radius: 20px;
+}
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  color: var(--red);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.hero h1 .gold { color: var(--gold); }
+.hero .sub {
+  font-size: clamp(0.95rem, 2vw, 1.3rem);
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 16px auto 32px;
+}
+.hero .byline {
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+.hero .byline em { font-style: normal; color: var(--red); }
+
+.scroll-indicator {
+  position: absolute; bottom: 30px;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px; color: var(--text-muted); font-size: 12px;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+.scroll-indicator .arrow { font-size: 24px; }
+
+/* ===== Section ===== */
+.section {
+  padding: 80px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.section-header .label {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+}
+.section-header h2 {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  color: var(--navy);
+}
+
+@media (prefers-color-scheme: dark) {
+  .section-header h2, .section-header .label {
+    color: var(--text);
+  }
+}
+:root[data-theme="dark"] .section-header h2,
+:root[data-theme="dark"] .section-header .label {
+  color: var(--text);
+}
+
+/* ===== Fishbone SVG ===== */
+.fishbone-wrapper {
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 30px 10px;
+  box-shadow: 0 4px 40px var(--shadow);
+  overflow-x: auto;
+  margin: 0 auto;
+  max-width: 1300px;
+}
+
+.fishbone-wrapper svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 900px;
+}
+
+/* Fishbone interactive elements */
+.fishbone-rib {
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+.fishbone-rib:hover { opacity: 1 !important; }
+.fishbone-rib-group:hover .fishbone-rib { opacity: 1; }
+.fishbone-rib-group:hover ~ .fishbone-rib-group .fishbone-rib { opacity: 0.4; }
+
+.fishbone-rib-label {
+  cursor: pointer;
+  transition: fill 0.3s;
+}
+.fishbone-rib-group:hover .fishbone-rib-label { fill: var(--red); }
+
+/* Sub-bone text */
+.sub-bone-text { font-size: 11px; }
+.sub-bone-text tspan { font-size: 11px; }
+
+/* ===== Scroll-trigger fade ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Detail cards ===== */
+.detail-grid {
+  display: grid;
+  gap: 40px;
+  margin-top: 60px;
+}
+.detail-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 2px 20px var(--shadow);
+  border-left: 4px solid var(--red);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.detail-card.full { grid-template-columns: 1fr; }
+.detail-card .card-number {
+  position: absolute;
+  top: -12px; left: 24px;
+  background: var(--red);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 14px;
+  border-radius: 10px;
+  letter-spacing: 1px;
+}
+.detail-card .card-title {
+  grid-column: 1 / -1;
+  font-size: 1.4rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.detail-card .card-subtitle {
+  grid-column: 1 / -1;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+.detail-card h4 {
+  font-size: 1rem;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+.detail-card ul {
+  list-style: none;
+  padding: 0;
+}
+.detail-card ul li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+.detail-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 10px;
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+.detail-card .stat-box {
+  background: var(--surface-inset);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.detail-card .stat-box .num {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--red);
+  font-family: "Noto Serif SC", serif;
+}
+.detail-card .stat-box .label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ===== Timeline ===== */
+.timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin: 40px 0;
+  position: relative;
+  padding: 20px 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--red), var(--gold));
+  transform: translateY(-50%);
+}
+.timeline-item {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.timeline-item .dot {
+  width: 16px; height: 16px;
+  background: var(--red);
+  border: 3px solid var(--gold);
+  border-radius: 50%;
+  margin: 0 auto 12px;
+}
+.timeline-item .year {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+.timeline-item .desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ===== Footer ===== */
+.footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 40px 24px;
+  font-size: 14px;
+}
+.footer a {
+  color: var(--gold);
+  text-decoration: none;
+}
+.footer a:hover { text-decoration: underline; }
+.footer .source-title {
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .detail-card { grid-template-columns: 1fr; padding: 28px 20px; }
+  .fishbone-wrapper { padding: 16px 4px; }
+  .fishbone-wrapper svg { min-width: 700px; }
+  .section { padding: 48px 16px; }
+  .timeline { flex-direction: column; align-items: stretch; gap: 16px; }
+  .timeline::before { display: none; }
+  .timeline-item { display: flex; align-items: center; gap: 16px; text-align: left; }
+  .timeline-item .dot { margin: 0; flex-shrink: 0; }
+}
+
+/* ===== Print ===== */
+@media print {
+  .preloader, .theme-toggle, .scroll-indicator { display: none; }
+  .hero { min-height: auto; padding: 40px 24px; }
+  .fishbone-wrapper { box-shadow: none; border: 1px solid #ccc; }
+  .detail-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+  <div class="spinner"></div>
+  <p>两个一百年</p>
+</div>
+
+<!-- Theme toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="切换主题">🌓</button>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="hero-badge">鱼骨图·FISHBONE</div>
+  <h1>
+    两个<span class="gold">一百年</span><br>
+    奋斗目标
+  </h1>
+  <p class="sub">
+    从邓小平"三步走"战略构想，到全面建成小康社会，再到社会主义现代化强国<br>
+    一部跨越世纪的宏伟蓝图
+  </p>
+  <p class="byline">
+    提出者 <em>邓小平</em> · 时间跨度 <em>1987 — 2049</em>
+  </p>
+  <div class="scroll-indicator">
+    <span>向下滚动</span>
+    <span class="arrow">↓</span>
+  </div>
+</section>
+
+<!-- ===== FISHBONE DIAGRAM ===== -->
+<section class="section" id="diagram">
+  <div class="section-header fade-in">
+    <div class="label">鱼骨图</div>
+    <h2>两个百年奋斗目标 · 全景脉络</h2>
+    <p style="color:var(--text-secondary);margin-top:12px;font-size:0.92rem">
+      鱼骨图（Ishikawa Diagram）展示目标的因果结构与历史演进
+    </p>
+  </div>
+
+  <div class="fishbone-wrapper fade-in" id="fishboneContainer">
+    <svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="两个一百年奋斗目标鱼骨图">
+      <defs>
+        <!-- Arrowhead -->
+        <marker id="arrow" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto">
+          <path d="M0,0 L10,4 L0,8 Z" fill="var(--red, #C41E3A)" style="fill:#C41E3A"/>
+        </marker>
+        <!-- Glow filter -->
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Subtle shadow -->
+        <filter id="softShadow">
+          <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.15"/>
+        </filter>
+        <!-- Ribbon gradient -->
+        <linearGradient id="redGold" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#C41E3A"/>
+          <stop offset="100%" stop-color="#D4A648"/>
+        </linearGradient>
+        <linearGradient id="goldRed" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#D4A648"/>
+          <stop offset="100%" stop-color="#C41E3A"/>
+        </linearGradient>
+      </defs>
+
+      <!-- ===== BACKGROUND ===== -->
+      <rect width="1200" height="720" fill="transparent" rx="16"/>
+
+      <!-- ===== SPINE ===== -->
+      <!-- Main horizontal spine with arrow -->
+      <line x1="60" y1="360" x2="1120" y2="360" stroke="#C41E3A" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+      <!-- Fishbone tail decoration -->
+      <path d="M60,360 L90,330 L90,390 Z" fill="#D4A648" opacity="0.6"/>
+
+      <!-- Tail label -->
+      <text x="60" y="326" text-anchor="middle" font-size="12" fill="#6B6B6B" font-family="Noto Sans SC, sans-serif">起源</text>
+
+      <!-- Head (effect) box -->
+      <rect x="1050" y="320" width="130" height="80" rx="12" fill="#C41E3A" filter="url(#softShadow)"/>
+      <text x="1115" y="351" text-anchor="middle" font-size="15" fill="#fff" font-weight="700" font-family="Noto Serif SC, serif">两个一百年</text>
+      <text x="1115" y="374" text-anchor="middle" font-size="13" fill="rgba(255,255,255,0.85)" font-family="Noto Sans SC, sans-serif">奋斗目标</text>
+
+      <!-- ===== RIB 1 (top) - 三步走战略 ===== -->
+      <g class="fishbone-rib-group" data-rib="1">
+        <!-- Main rib line -->
+        <line class="fishbone-rib" x1="160" y1="360" x2="120" y2="230" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <line class="fishbone-rib" x1="120" y1="230" x2="280" y2="230" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <!-- Label box at end -->
+        <rect x="100" y="199" width="200" height="36" rx="8" fill="var(--surface, #F8F5F0)" fill-opacity="0.95" stroke="#D4A648" stroke-width="1.5"/>
+        <text class="fishbone-rib-label" x="200" y="223" text-anchor="middle" font-size="14" font-weight="700" fill="#2C2C2C" font-family="Noto Serif SC, serif">邓小平"三步走"战略</text>
+
+        <!-- Sub-bones -->
+        <line x1="140" y1="230" x2="140" y2="194" stroke="#D4A648" stroke-width="1.8" stroke-linecap="round"/>
+        <text x="145" y="188" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">1981-1990 · 解决温饱</text>
+
+        <line x1="200" y1="230" x2="200" y2="194" stroke="#D4A648" stroke-width="1.8" stroke-linecap="round"/>
+        <text x="205" y="188" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">1991-2000 · 达到小康</text>
+
+        <line x1="260" y1="230" x2="260" y2="194" stroke="#D4A648" stroke-width="1.8" stroke-linecap="round"/>
+        <text x="265" y="188" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">2001-2050 · 基本现代化</text>
+      </g>
+
+      <!-- ===== RIB 2 (top) - 第一个百年 ===== -->
+      <g class="fishbone-rib-group" data-rib="2">
+        <line class="fishbone-rib" x1="380" y1="360" x2="330" y2="220" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <line class="fishbone-rib" x1="330" y1="220" x2="540" y2="220" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <rect x="330" y="186" width="210" height="36" rx="8" fill="var(--surface, #F8F5F0)" fill-opacity="0.95" stroke="#C41E3A" stroke-width="1.5"/>
+        <text class="fishbone-rib-label" x="435" y="210" text-anchor="middle" font-size="14" font-weight="700" fill="#2C2C2C" font-family="Noto Serif SC, serif">第一个百年目标 · 2021</text>
+
+        <!-- Sub-bones -->
+        <line x1="345" y1="220" x2="345" y2="175" stroke="#C41E3A" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="350" y="169" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">全面小康</text>
+
+        <line x1="400" y1="220" x2="400" y2="175" stroke="#C41E3A" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="405" y="169" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">GDP翻番</text>
+
+        <line x1="455" y1="220" x2="455" y2="175" stroke="#C41E3A" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="460" y="169" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">全面脱贫</text>
+
+        <line x1="510" y1="220" x2="510" y2="175" stroke="#C41E3A" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="515" y="169" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">文化强国</text>
+      </g>
+
+      <!-- ===== RIB 3 (top) - 第二个百年 ===== -->
+      <g class="fishbone-rib-group" data-rib="3">
+        <line class="fishbone-rib" x1="620" y1="360" x2="560" y2="200" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <line class="fishbone-rib" x1="560" y1="200" x2="800" y2="200" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <rect x="560" y="164" width="240" height="36" rx="8" fill="var(--surface, #F8F5F0)" fill-opacity="0.95" stroke="#D4A648" stroke-width="1.5"/>
+        <text class="fishbone-rib-label" x="680" y="188" text-anchor="middle" font-size="14" font-weight="700" fill="#2C2C2C" font-family="Noto Serif SC, serif">第二个百年目标 · 2049</text>
+
+        <!-- Sub-bones -->
+        <line x1="580" y1="200" x2="580" y2="150" stroke="#D4A648" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="585" y="143" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">物质文明</text>
+
+        <line x1="640" y1="200" x2="640" y2="150" stroke="#D4A648" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="645" y="143" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">政治文明</text>
+
+        <line x1="700" y1="200" x2="700" y2="150" stroke="#D4A648" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="705" y="143" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">精神文明</text>
+
+        <line x1="760" y1="200" x2="760" y2="150" stroke="#D4A648" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="765" y="143" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">生态文明</text>
+      </g>
+
+      <!-- ===== RIB 4 (bottom) - 战略安排 ===== -->
+      <g class="fishbone-rib-group" data-rib="4">
+        <line class="fishbone-rib" x1="260" y1="360" x2="220" y2="480" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <line class="fishbone-rib" x1="220" y1="480" x2="420" y2="480" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <rect x="220" y="511" width="200" height="36" rx="8" fill="var(--surface, #F8F5F0)" fill-opacity="0.95" stroke="#C41E3A" stroke-width="1.5"/>
+        <text class="fishbone-rib-label" x="320" y="534" text-anchor="middle" font-size="14" font-weight="700" fill="#2C2C2C" font-family="Noto Serif SC, serif">战略安排 · 两阶段</text>
+
+        <line x1="260" y1="480" x2="260" y2="518" stroke="#C41E3A" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="265" y="528" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">2020-2035</text>
+
+        <line x1="340" y1="480" x2="340" y2="518" stroke="#C41E3A" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="345" y="528" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">2035-2049</text>
+      </g>
+
+      <!-- ===== RIB 5 (bottom) - 核心内涵 ===== -->
+      <g class="fishbone-rib-group" data-rib="5">
+        <line class="fishbone-rib" x1="500" y1="360" x2="460" y2="490" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <line class="fishbone-rib" x1="460" y1="490" x2="660" y2="490" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <rect x="460" y="521" width="200" height="36" rx="8" fill="var(--surface, #F8F5F0)" fill-opacity="0.95" stroke="#D4A648" stroke-width="1.5"/>
+        <text class="fishbone-rib-label" x="560" y="544" text-anchor="middle" font-size="14" font-weight="700" fill="#2C2C2C" font-family="Noto Serif SC, serif">核心内涵</text>
+
+        <line x1="500" y1="490" x2="500" y2="528" stroke="#D4A648" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="505" y="538" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">共同富裕</text>
+
+        <line x1="580" y1="490" x2="580" y2="528" stroke="#D4A648" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="585" y="538" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">民族复兴</text>
+      </g>
+
+      <!-- ===== RIB 6 (bottom) - 历史意义 ===== -->
+      <g class="fishbone-rib-group" data-rib="6">
+        <line class="fishbone-rib" x1="750" y1="360" x2="710" y2="490" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <line class="fishbone-rib" x1="710" y1="490" x2="910" y2="490" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+        <rect x="710" y="521" width="200" height="36" rx="8" fill="var(--surface, #F8F5F0)" fill-opacity="0.95" stroke="#C41E3A" stroke-width="1.5"/>
+        <text class="fishbone-rib-label" x="810" y="544" text-anchor="middle" font-size="14" font-weight="700" fill="#2C2C2C" font-family="Noto Serif SC, serif">历史意义</text>
+
+        <line x1="750" y1="490" x2="750" y2="528" stroke="#C41E3A" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="755" y="538" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">接续奋斗</text>
+
+        <line x1="830" y1="490" x2="830" y2="528" stroke="#C41E3A" stroke-width="1.5" stroke-linecap="round"/>
+        <text x="835" y="538" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">伟大复兴</text>
+      </g>
+
+      <!-- ===== TIMELINE LABELS ON SPINE ===== -->
+      <circle cx="160" cy="360" r="6" fill="#D4A648"/>
+      <text x="160" y="384" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text, #2C2C2C)" font-family="Noto Sans SC, sans-serif">1987</text>
+
+      <circle cx="380" cy="360" r="6" fill="#C41E3A"/>
+      <text x="380" y="384" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text, #2C2C2C)" font-family="Noto Sans SC, sans-serif">2021✓</text>
+
+      <circle cx="620" cy="360" r="6" fill="#D4A648"/>
+      <text x="620" y="384" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text, #2C2C2C)" font-family="Noto Sans SC, sans-serif">2035</text>
+
+      <circle cx="870" cy="360" r="8" fill="none" stroke="#C41E3A" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="870" y="384" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text, #2C2C2C)" font-family="Noto Sans SC, sans-serif">2049→</text>
+
+      <!-- Legend -->
+      <rect x="30" y="640" width="144" height="60" rx="8" fill="var(--surface, #F8F5F0)" fill-opacity="0.9" stroke="var(--border, #E0D8CC)" stroke-width="1"/>
+      <text x="42" y="660" font-size="11" font-weight="700" fill="var(--text, #2C2C2C)" font-family="Noto Sans SC, sans-serif">图例</text>
+      <line x1="42" y1="678" x2="72" y2="678" stroke="#C41E3A" stroke-width="3" stroke-linecap="round"/>
+      <text x="80" y="682" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">脊骨/肋骨</text>
+      <line x1="42" y1="694" x2="72" y2="694" stroke="#D4A648" stroke-width="2" stroke-linecap="round"/>
+      <text x="80" y="698" font-size="10" fill="var(--text-secondary, #6B6B6B)" font-family="Noto Sans SC, sans-serif">子项/分支</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== DETAILED CONTENT ===== -->
+<section class="section" id="details">
+  <div class="section-header fade-in">
+    <div class="label">深度解读</div>
+    <h2>鱼骨图各分支详解</h2>
+  </div>
+
+  <div class="detail-grid">
+
+    <!-- Rib 1 -->
+    <div class="detail-card fade-in" id="rib1-detail">
+      <div class="card-number">骨 ①</div>
+      <div class="card-title">邓小平"三步走"战略 · 历史背景</div>
+      <div class="card-subtitle">1987年，邓小平提出中国现代化建设的"三步走"发展战略，为两个百年目标奠定基础</div>
+
+      <div>
+        <h4>第一步（1981—1990）</h4>
+        <ul>
+          <li>国民生产总值翻一番，解决人民温饱问题</li>
+          <li>农村改革率先突破，家庭联产承包责任制</li>
+          <li>1984年城市经济体制改革全面展开</li>
+          <li>1990年提前实现翻一番目标，基本解决温饱</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>第二步（1991—2000）</h4>
+        <ul>
+          <li>国民生产总值再翻一番，人民生活达到小康</li>
+          <li>1992年南方谈话推动市场化改革</li>
+          <li>GDP年均增长10%以上</li>
+          <li>2000年人均GDP突破800美元，总体小康</li>
+        </ul>
+      </div>
+
+      <div style="grid-column:1/-1">
+        <h4>第三步（2001—2050）</h4>
+        <ul>
+          <li>基本实现现代化，达到中等发达国家水平</li>
+          <li>"三步走"战略为两个一百年目标提供了历史框架</li>
+          <li>1997年党的十五大将第三步进一步细化为"新三步"</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Rib 2 -->
+    <div class="detail-card fade-in" id="rib2-detail">
+      <div class="card-number">骨 ②</div>
+      <div class="card-title">第一个百年目标 · 全面建成小康社会（2021）</div>
+      <div class="card-subtitle">到中国共产党成立100周年时，全面建成小康社会——经济、政治、文化、社会、生态文明五位一体</div>
+
+      <div>
+        <h4>经济维度</h4>
+        <ul>
+          <li>国内生产总值比2010年翻一番</li>
+          <li>2020年GDP突破100万亿元</li>
+          <li>人均GDP突破1万美元</li>
+          <li>城镇化率超过60%</li>
+        </ul>
+        <div class="stat-box" style="margin-top:16px">
+          <div class="num">100万亿+</div>
+          <div class="label">2020年GDP总量</div>
+        </div>
+      </div>
+
+      <div>
+        <h4>政治与社会维度</h4>
+        <ul>
+          <li>全面依法治国，推进国家治理现代化</li>
+          <li>脱贫攻坚全面胜利——9899万农村贫困人口全部脱贫</li>
+          <li>832个贫困县全部摘帽</li>
+          <li>基本公共服务均等化显著推进</li>
+          <li>社会保障体系覆盖全民</li>
+        </ul>
+        <div class="stat-box" style="margin-top:16px">
+          <div class="num">9899万</div>
+          <div class="label">脱贫人口</div>
+        </div>
+      </div>
+
+      <div style="grid-column:1/-1">
+        <h4>文化与生态维度</h4>
+        <ul>
+          <li>文化自信显著增强，文化软实力提升</li>
+          <li>文化产业成为国民经济支柱性产业</li>
+          <li>生态文明建设纳入"五位一体"总体布局</li>
+          <li>"绿水青山就是金山银山"理念深入实践</li>
+          <li>2021年7月1日，习近平宣布第一个百年目标如期实现</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Rib 3 -->
+    <div class="detail-card fade-in" id="rib3-detail">
+      <div class="card-number">骨 ③</div>
+      <div class="card-title">第二个百年目标 · 社会主义现代化强国（2049）</div>
+      <div class="card-subtitle">到中华人民共和国成立100周年时，建成富强民主文明和谐美丽的社会主义现代化强国</div>
+
+      <div>
+        <h4>物质文明 · 富强</h4>
+        <ul>
+          <li>综合国力和国际影响力领先</li>
+          <li>人均GDP达到中等发达国家水平</li>
+          <li>基本实现共同富裕</li>
+          <li>建成现代化经济体系</li>
+          <li>进入创新型国家前列</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>政治文明 · 民主</h4>
+        <ul>
+          <li>人民民主更加健全</li>
+          <li>法治国家、法治政府、法治社会基本建成</li>
+          <li>国家治理体系和治理能力现代化</li>
+          <li>全过程人民民主深入发展</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>精神文明 · 文明</h4>
+        <ul>
+          <li>社会主义核心价值观深入人心</li>
+          <li>全民素质和社会文明程度达到新高度</li>
+          <li>中华文化影响力显著提升</li>
+          <li>文化自信充分彰显</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>社会文明 · 和谐</h4>
+        <ul>
+          <li>基本公共服务均等化基本实现</li>
+          <li>城乡居民收入差距显著缩小</li>
+          <li>全体人民共同富裕取得实质性进展</li>
+          <li>社会治理效能显著提升</li>
+        </ul>
+      </div>
+
+      <div style="grid-column:1/-1">
+        <h4>生态文明 · 美丽</h4>
+        <ul>
+          <li>人与自然和谐共生现代化基本实现</li>
+          <li>碳排放达峰后稳中有降</li>
+          <li>生态环境根本好转</li>
+          <li>"美丽中国"目标基本实现</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Rib 4 -->
+    <div class="detail-card fade-in" id="rib4-detail">
+      <div class="card-number">骨 ④</div>
+      <div class="card-title">战略安排 · 两阶段发展战略</div>
+      <div class="card-subtitle">党的十九大将第二个百年目标分为两个阶段进行安排</div>
+
+      <div>
+        <h4>第一阶段：2020 → 2035</h4>
+        <ul>
+          <li>在全面小康基础上再奋斗15年</li>
+          <li><strong>基本实现社会主义现代化</strong></li>
+          <li>经济实力、科技实力大幅跃升</li>
+          <li>进入创新型国家前列</li>
+          <li>基本实现新型工业化、信息化、城镇化、农业现代化</li>
+          <li>基本公共服务均等化</li>
+          <li>碳排放达峰后稳中有降</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>第二阶段：2035 → 2049</h4>
+        <ul>
+          <li>在基本现代化基础上再奋斗15年</li>
+          <li><strong>建成社会主义现代化强国</strong></li>
+          <li>综合国力位居世界前列</li>
+          <li>实现共同富裕</li>
+          <li>成为综合国力和国际影响力领先的国家</li>
+          <li>中华民族以更加昂扬的姿态屹立于世界民族之林</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Rib 5 -->
+    <div class="detail-card fade-in" id="rib5-detail">
+      <div class="card-number">骨 ⑤</div>
+      <div class="card-title">核心内涵 · 共同富裕与民族复兴</div>
+      <div class="card-subtitle">两个百年目标的核心是实现中华民族伟大复兴的中国梦</div>
+
+      <div>
+        <h4>共同富裕</h4>
+        <ul>
+          <li>从"先富带动后富"到"共同富裕"</li>
+          <li>邓小平提出：允许一部分人先富起来，最终达到共同富裕</li>
+          <li>第一个百年目标消除绝对贫困</li>
+          <li>第二个百年目标实现全体人民共同富裕</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>民族复兴</h4>
+        <ul>
+          <li>"两步走"战略的逻辑演进</li>
+          <li>从站起来、富起来到强起来的历史飞跃</li>
+          <li>邓小平奠基 → 三代领导人接续推进</li>
+          <li>中国式现代化道路的全面实现</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Rib 6 -->
+    <div class="detail-card fade-in" id="rib6-detail">
+      <div class="card-number">骨 ⑥</div>
+      <div class="card-title">历史意义 · 从邓小平到新时代</div>
+      <div class="card-subtitle">两个百年目标是中国共产党治国理政的长期战略，体现历史连续性与时代创新</div>
+
+      <div>
+        <h4>理论创新</h4>
+        <ul>
+          <li>邓小平首次系统提出中国现代化建设的时间表与路线图</li>
+          <li>"三步走"战略是中国特色社会主义理论体系的重要组成</li>
+          <li>从"三步走"到"两个一百年"，一脉相承又与时俱进</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>实践成就</h4>
+        <ul>
+          <li>中国成为世界第二大经济体</li>
+          <li>人均GDP从1980年的约200美元到2021年超1.2万美元</li>
+          <li>7.7亿农村贫困人口脱贫</li>
+          <li>全球创新指数排名跃升至第12位</li>
+        </ul>
+      </div>
+
+      <div style="grid-column:1/-1">
+        <h4>宏伟愿景</h4>
+        <ul>
+          <li>两个百年目标是中国共产党长期执政的战略蓝图</li>
+          <li>体现了"一张蓝图绘到底"的政治定力</li>
+          <li>为发展中国家走向现代化提供了中国方案</li>
+          <li>是人类历史上规模最大的现代化进程</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== TIMELINE SECTION ===== -->
+<section class="section" id="timeline">
+  <div class="section-header fade-in">
+    <div class="label">历史脉络</div>
+    <h2>从邓小平到新时代 · 时间线</h2>
+  </div>
+
+  <div class="fade-in">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div class="year">1987</div>
+        <div class="desc">邓小平提出<br>"三步走"战略</div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div class="year">2000</div>
+        <div class="desc">总体小康<br>目标实现</div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div class="year">2012</div>
+        <div class="desc">十八大提出<br>两个一百年</div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div class="year">2017</div>
+        <div class="desc">十九大<br>两阶段安排</div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div class="year">2021✓</div>
+        <div class="desc">全面小康<br>如期实现</div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div class="year">2035</div>
+        <div class="desc">基本实现<br>现代化</div>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <div class="year">2049→</div>
+        <div class="desc">现代化强国<br>伟大复兴</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOURCE INFO ===== -->
+<section class="section" id="sources" style="padding-bottom:60px">
+  <div class="section-header fade-in">
+    <div class="label">参考资料</div>
+    <h2>资料来源</h2>
+  </div>
+  <div class="fade-in" style="color:var(--text-secondary);font-size:14px;max-width:700px;margin:0 auto;text-align:center;line-height:2">
+    <p>· 邓小平《一切从社会主义初级阶段的实际出发》（1987年）</p>
+    <p>· 中国共产党第十三次全国代表大会报告（1987年）</p>
+    <p>· 中国共产党第十九次全国代表大会报告（2017年）</p>
+    <p>· 习近平：《决胜全面建成小康社会 夺取新时代中国特色社会主义伟大胜利》</p>
+    <p>· 中华人民共和国国民经济和社会发展多个五年规划纲要</p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <p class="source-title">两个一百年 · 鱼骨图</p>
+  <p>邓小平两个百年奋斗目标 · 全景解读</p>
+  <p style="margin-top:12px;font-size:13px">
+    本页面仅作历史知识展示 · 基于公开资料整理
+  </p>
+  <p style="margin-top:16px;font-size:12px;">
+    <a href="https://github.com/FoyFan/two-centenary-goals" target="_blank" rel="noopener">GitHub</a>  ·
+    数据来源：中国政府网 · 新华社 · 人民日报
+  </p>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// Preloader
+window.addEventListener('load', () => {
+  document.getElementById('preloader').classList.add('hidden');
+});
+
+// Theme toggle
+const toggle = document.getElementById('themeToggle');
+toggle.addEventListener('click', () => {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  if (current === 'dark') {
+    html.removeAttribute('data-theme');
+    toggle.textContent = '🌓';
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    toggle.textContent = '☀️';
+  }
+});
+
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Fishbone rib hover → scroll to detail
+document.querySelectorAll('.fishbone-rib-group').forEach(group => {
+  const ribId = group.dataset.rib;
+  const target = document.getElementById(`rib${ribId}-detail`);
+  if (!target) return;
+
+  // Click on the group scrolls to the detail
+  group.style.cursor = 'pointer';
+  group.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const top = target.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({ top, behavior: 'smooth' });
+    // Highlight briefly
+    target.style.transition = 'box-shadow 0.3s';
+    target.style.boxShadow = '0 0 0 3px var(--gold, #D4A648)';
+    setTimeout(() => { target.style.boxShadow = ''; }, 1500);
+  });
+});
+
+console.log('🐟 两个一百年 · 鱼骨图 loaded');
+</script>
+</body>
+</html>
